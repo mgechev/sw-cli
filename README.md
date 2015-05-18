@@ -1,6 +1,6 @@
 # Service Workers CLI Tool
-* Status: Draft
-* Authors: Minko Gechev (mgechev@gmail.com)
+* **Status: Draft**
+* **Authors: Minko Gechev (mgechev@gmail.com)**
 
 ## Objective
 Build a CLI tool, which accepts command line parameters and/or reads a JSON config file and generates service workers code
