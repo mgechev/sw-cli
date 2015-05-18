@@ -9,19 +9,19 @@ Implement different strategies for:
 * Model caching
 * Background sync?
 
-## Background
+## Motivation
+Jake Archibald introduced a few [common patterns](http://jakearchibald.com/2014/offline-cookbook/) for using service workers. Since most applications will use service workers in quite similar fashion, around these patterns, there are going to be a lot of boilerplates. In order to handle the code duplication most of the code could be generated automatically. Later, the user can do further customizations if required.
 
 ## Prior Art
-Since there are a lot of common patterns when using service workers, most of the code for them could be automatically generated. Later the user can do some application specific customizations.
 
 ## Detailed Design
 ### Overview:
-The CLI tool should have the following modules:
+The CLI tool should have the following high-level modules:
 * Configuration generator
 * Service Worker's code generator
-* Code templates, which implement the main service workers' strategies
+* Code templates, which implement the main service workers' [strategies](http://jakearchibald.com/2014/offline-cookbook/)
 
-The code templates should contain placeholders for the resources which should be handled by the service workers.
+The code templates should contain placeholders for the resources which should be handled by the service worker.
 
 ### Config generation:
 The tool should provide interactive configuration helper, similar to `karma init`, which asks the user for the following configuration details:
@@ -31,10 +31,12 @@ The tool should provide interactive configuration helper, similar to `karma init
 * Fallback resources, if required by the strategy
 * Output directory
 
-### Code generation
-Once configured the tool can generate the service worker by filling the placeholders in the template. Which code template will be used depends completely on the chosen strategy.
+The configuration options depend on the chosen strategy, which means that the initializer might need to plug strategy specific config generators run-time.
 
-### High-level Flow
+### Code generation
+Once configured the tool can generate the service worker by filling the placeholders in the template. Which code template will be used depends on the chosen strategy during initialization.
+
+### High-Level Flow
 
 On the following sequence diagram is shown the communication between the different high-level modules of the generator. During development it is highly possible changes to be introduced:
 
