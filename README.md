@@ -34,8 +34,18 @@ The tool should provide interactive configuration helper, similar to `karma init
 
 The configuration options depend on the chosen strategy, which means that the initializer might need to plug strategy specific config generator run-time.
 
+Since the user may want to implement different caching strategies for different resources in his application, the tool's configuration should be a list of the options above.
+
 ### Code generation
 Once configured the tool can generate the service worker by filling the placeholders in the template. The code template which will be used depends on the strategy in the configuration file.
+
+Since multiple service workers' strategies could be chosen, in order to generate code for all of them we have the following options:
+- Generate separate service workers with different scope
+  - **Cons** Easier for implementation
+  - **Pros** Limiting since we may want to apply different strategies for resources in the same scope
+- Generate a single service workers with the different strategies implemented
+  - **Cons** Eventually a bit more complex for implementation
+  - **Pros** Much more flexible. We can have different strategies for the resources in the same scope
 
 ### High-Level Flow
 On the following sequence diagram shows the communication between the different high-level modules of the generator. During development it is highly possible changes to be introduced:
@@ -60,7 +70,7 @@ Suggested strategies for implementation (only the titles are listed here, for fu
 * Generic fallback
 * **Cache & network race - it could be used in rare cases, mostly low end mobile devices**
 
-The CLI tool should support generation of service workers based on different strategies.
+The CLI tool should support generation of service workers based on different strategies since the different resources in the app might have different requirements.
 
 ## Security Considerations
 I don't believe there are any security considerations.
